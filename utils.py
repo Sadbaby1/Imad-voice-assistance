@@ -5,7 +5,7 @@ from agent import *
 from schema import *
 
 
-# calling the tools
+# calling (runing) the tool
 def run_tool(tool_call):
     name = tool_call.function.name
     args = json.loads(tool_call.function.arguments)
@@ -16,7 +16,7 @@ def run_tool(tool_call):
         return f"Error: {error}"
 
 
-# One run of our AI agent.
+# One run of our AI agent. --> run each time the user sens a prompte
 def run_agent(messages):
     # loop that handle one loop give to the model
     while True:
