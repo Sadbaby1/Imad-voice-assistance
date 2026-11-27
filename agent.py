@@ -10,7 +10,7 @@ client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY") or os.getenv("LLM_API_KEY"),
     base_url=os.getenv("LLM_BASE_URL") or None,
 )
-CHAT_MODEL = os.getenv("CHAT_MODEL", "gpt-4o-mini")
+MODEL = os.getenv("CHAT_MODEL", "gpt-4o-mini")
 
 
 SYSTEM_PROMPT_TEMPLATE = """You are Anoir, a friendly voice assistant for people of all ages \
