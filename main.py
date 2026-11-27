@@ -1,7 +1,9 @@
 import json
 import os
 import subprocess
-import tools, schema, utils, agnet
+from utils import *
+from schema import *
+from tools import *
 
 
 def main():
