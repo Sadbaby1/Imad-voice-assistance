@@ -11,8 +11,11 @@ def list_files(path="."):
 
 
 def read_file(path):
-    with open(path, "r", encoding="utf-8") as f:
-        return f.read()
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read()
+    expect FileNotFoundError:
+        return f"File{path} not found"
 
 
 def write_file(path, content):
@@ -30,3 +33,15 @@ def run_command(command):
     )
     output = (result.stdout + result.stderr).strip()
     return output or f"(no output, exit code {result.returncode})"
+
+
+def add_avent():
+    pass
+
+
+def list_events():
+    pass
+
+
+def set_remider():
+    pass
