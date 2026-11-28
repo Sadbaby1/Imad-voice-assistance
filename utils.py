@@ -1,7 +1,7 @@
 import json
 from agent import client, MODEL
 from datetime import datetime
-
+import re  # for qwen model, to be remove in case of aorder model
 from schema import TOOL_SCHEMAS
 from tools import TOOLS
 
@@ -52,6 +52,9 @@ def run_agent(messages):
         # No tool calls means the model gave a normal answer, so we are done
         if not message.tool_calls:
             reply = message.content or ""
+            reply = re.sub(
+                r"<think>.*?</think>", "", reply, flags=re.DOTALL
+            ).strip()  # turn off think for qwen3 model : to be remove for order model
             log_event("reply", {"model": MODEL, "reply": reply})
             return reply
 
