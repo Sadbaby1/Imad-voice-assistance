@@ -14,7 +14,7 @@ def read_file(path):
     try:
         with open(path, "r", encoding="utf-8") as f:
             return f.read()
-    expect FileNotFoundError:
+    except FileNotFoundError:
         return f"File{path} not found"
 
 
@@ -45,3 +45,12 @@ def list_events():
 
 def set_remider():
     pass
+
+
+# list of tools available to the model
+TOOLS = {
+    "list_files": list_files,
+    "read_file": read_file,
+    "write_file": write_file,
+    "run_command": run_command,
+}

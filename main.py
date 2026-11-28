@@ -1,24 +1,11 @@
-import json
-import os
-import subprocess
-from utils import *
-from schema import *
-from tools import *
-
-# keeep track of message list
-messages = []
-
-# list of tools available to the model
-TOOLS = {
-    "list_files": list_files,
-    "read_file": read_file,
-    "write_file": write_file,
-    "run_shell_command": run_shell_command,
-}
+from agent import build_system_prompt
+from utils import run_agent, log_event
 
 
 def main():
-    massages.append({"role": "system", "content": SYSTEM_PROMPT})
+    # One system message at the start, then the conversation grows from here
+    messages = [{"role": "system", "content": build_system_prompt()}]
+
     print(f"Mini agent ready. Type 'exit' to quit.")
 
     # loop for the user to keep prompting the model
@@ -27,10 +14,17 @@ def main():
         if user_input.strip().lower() in ("exit", "quit"):
             break
 
-        massages.append({"role": "user", "content": user_input})
+        messages.append({"role": "user", "content": user_input})
+        log_event("user", {"text": user_input})
 
-        reply = run_agent(massages)
-        print(f"\nAgent: {reply}")
+        try:
+            reply = run_agent(messages)
+        except Exception as error:
+            # Never crash during a demo: show a friendly message instead
+            print(f"\n[error] {error}\n")
+            continue
+
+        print(f"\nAssistant: {reply}\n")
 
 
 if __name__ == "__main__":
